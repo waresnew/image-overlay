@@ -29,6 +29,4 @@ public class ChangeMode implements ActionListener {
             GlobalVars.modeButton.setText("Image");
         }
     }
-    //TODO add this
-    //https://stackoverflow.com/questions/20440484/embed-a-youtube-video-to-jframe
 }

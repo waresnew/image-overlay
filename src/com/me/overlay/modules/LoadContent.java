@@ -61,10 +61,10 @@ public class LoadContent implements ActionListener {
                     GlobalVars.frame.getContentPane().add(browser);
                     GlobalVars.drawingBoard.setVisible(true);
                 } else {
-                    //error dialog with criteriaa here
+                    JOptionPane.showMessageDialog(null, "Wrong URL format. Example link: https://www.youtube.com/watch?v=s7DGRb1C0b0");
                 }
             } else {
-                //same
+                JOptionPane.showMessageDialog(null, "Wrong URL format. Example link: https://www.youtube.com/watch?v=s7DGRb1C0b0");
             }
         }
     }
