@@ -10,6 +10,7 @@ public class GuiAttributes implements Serializable {
     private int yLoc;
     private String opacity;
     private String sizeMulti;
+    //TODO add mode, set modebutton text to mode, and add video url
 
     public int getWidth() {
         return width;

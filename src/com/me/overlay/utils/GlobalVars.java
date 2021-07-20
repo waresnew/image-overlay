@@ -1,5 +1,7 @@
 package com.me.overlay.utils;
 
+import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
+import com.me.overlay.Mode;
 import com.me.overlay.modules.DrawingBoard;
 
 import javax.swing.*;
@@ -17,4 +19,7 @@ public class GlobalVars {
     public static BufferedImage origPic;
     public static BufferedImage pic;
     public static JCheckBox fillFrame;
+    public static String youtubeUrl;
+    public static Mode mode = Mode.IMAGE;
+    public static JButton modeButton;
 }

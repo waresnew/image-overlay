@@ -1,5 +1,6 @@
 package com.me.overlay;
 
+import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 import com.me.overlay.modules.Transparency;
 import com.me.overlay.modules.*;
 import com.me.overlay.modules.clickthrough.ClickThrough;
@@ -15,7 +16,6 @@ import java.awt.event.ComponentEvent;
 import java.lang.reflect.Field;
 
 public class Gui {
-
 
     private static Gui instance;
 
@@ -35,6 +35,7 @@ public class Gui {
 
     public void init() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        NativeInterface.open();
         GlobalVars.saveLocation.mkdir();
         GlobalVars.frame = new JFrame("Image Overlay");
         GlobalVars.drawingBoard = new DrawingBoard();
@@ -43,6 +44,7 @@ public class Gui {
         JPanel Options = new JPanel();
         GlobalVars.topMost = new JCheckBox("Topmost");
         GlobalVars.clickThrough = new JCheckBox("ClickThrough");
+        GlobalVars.modeButton = new JButton("Image");
         GlobalVars.topMost.addItemListener(new TopMost());
         GlobalVars.clickThrough.addItemListener(new ClickThrough());
         GlobalVars.sizeMultiplier = new JTextField(5);
@@ -59,13 +61,15 @@ public class Gui {
         load.addActionListener(new LoadLayout());
         save.addActionListener(new SaveLayout());
         GlobalVars.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        openFile.addActionListener(new LoadImage());
+        openFile.addActionListener(new LoadContent());
         changeTransparency.addActionListener(new Transparency());
+        GlobalVars.modeButton.addActionListener(new ChangeMode());
         Options.add(openFile);
         Options.add(changeTransparency);
         Options.add(GlobalVars.topMost);
         Options.add(GlobalVars.clickThrough);
         Options.add(GlobalVars.fillFrame);
+        Options.add(GlobalVars.modeButton);
         Options.add(GlobalVars.sizeMultiplier);
         file.add(load);
         file.add(save);
@@ -74,12 +78,15 @@ public class Gui {
         GlobalVars.frame.getContentPane().add(Options, BorderLayout.SOUTH);
         GlobalVars.frame.getContentPane().add(GlobalVars.drawingBoard);
         GlobalVars.frame.setLocationRelativeTo(null);
+        GlobalVars.mode = Mode.IMAGE;
         GlobalVars.frame.setVisible(true);
         try {
             unDecorate(GlobalVars.frame);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        NativeInterface.runEventPump();
+        Runtime.getRuntime().addShutdownHook(new Thread(NativeInterface::close));
         GlobalVars.frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
                 if (GlobalVars.fillFrame.isSelected()) {
