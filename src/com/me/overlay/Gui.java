@@ -85,16 +85,22 @@ public class Gui {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        NativeInterface.runEventPump();
+
         Runtime.getRuntime().addShutdownHook(new Thread(NativeInterface::close));
-        GlobalVars.frame.addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent componentEvent) {
+        new Thread(() -> {
+            while (true) {
                 if (GlobalVars.fillFrame.isSelected()) {
                     GlobalVars.pic = GuiUtils.resize(GlobalVars.pic, GlobalVars.frame.getWidth(), GlobalVars.frame.getHeight());
                     GlobalVars.frame.repaint();
                 }
+                try {
+                    Thread.sleep(33);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        });
+    }).start();
+        NativeInterface.runEventPump();
     }
     private void unDecorate(Frame frame) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         Field undecoratedField = Frame.class.getDeclaredField("undecorated");
