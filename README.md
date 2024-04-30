@@ -12,8 +12,7 @@ It also has the option to resize, change opacity, save/load layouts, and to enab
 
 - If the image looks blurry after resizing it many times then change the size multiplier back to 1 in order to get the original image that you uploaded 
 
-the video overlay only supports youtube 
-url should be in this format: https://www.youtube.com/watch?v=IDGOESHERE
+- The video overlay only supports YouTube and the URL should be in this format: https://www.youtube.com/watch?v= `IDGOESHERE`
 
 ![image](https://user-images.githubusercontent.com/45801973/135698289-1c093fa6-af6a-478f-8a90-a91491f98d8b.png)
 
